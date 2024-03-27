@@ -1,0 +1,38 @@
+[
+    {
+        "answer": "Mario Kart 8",
+        "hints": [{
+            "category": "Publisher and Developer",
+            "hint": "Nintendo",
+            "price": 3
+        }, {
+            "category": "Ingame Places",
+            "hint": "Bowsers Castle, ",
+            "price": 2
+        }]
+    },
+    {
+        "answer": "TLoZ: Breath of the Wild",
+        "hints": [{
+            "category": "Publisher and Developer",
+            "hint": "Nintendo",
+            "price": 3
+        }, {
+            "category": "Ingame Places",
+            "hint": "Hyrule Castle",
+            "price": 2
+        }]
+    },
+    {
+        "answer": "TLoZ: Tears of the Kingdom",
+        "hints": [{
+            "category": "Publisher and Developer",
+            "hint": "Nintendo",
+            "price": 3
+        }, {
+            "category": "Ingame Places",
+            "hint": "Hyrule Castle",
+            "price": 2
+        }]
+    }
+]
