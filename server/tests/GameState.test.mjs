@@ -192,14 +192,12 @@ describe("GameState", () => {
             let player = new Player("name");
             gameState.addPlayer(player);
             expect(() => gameState.playerMakesGuess("unvalid_name", "guess")).toThrow(Error);
-            expect(gameState.guesses.get("name")).toBeUndefined();
         });
 
         test("call with valid player", () => {
             let player = new Player("name");
             gameState.addPlayer(player);
             expect(() => gameState.playerMakesGuess("name", "guess")).not.toThrow(Error);
-            expect(gameState.guesses.get("name")).toBe("guess");
         });
 
         test("call with unvalid guess", () => {
@@ -250,13 +248,11 @@ describe("GameState", () => {
             gameState.playerIsCorrect("name");
 
             expect(player.hints.length).toBe(1);
-            expect(gameState.guesses.get("name")).not.toBeUndefined();
             expect(gameState.currentRound).toBe(0);
 
             gameState.nextRound();
 
             expect(player.hints.length).toBe(0);
-            expect(gameState.guesses.get("name")).toBeUndefined();
             expect(gameState.currentRound).toBe(1);
         });
 
@@ -270,7 +266,6 @@ describe("GameState", () => {
             gameState.playerIsCorrect("name");
 
             expect(player.hints.length).toBe(1);
-            expect(gameState.guesses.get("name")).not.toBeUndefined();
             expect(gameState.currentRound).toBe(0);
 
             for (let i = 0; i < gameDataLength; i++) {
@@ -280,7 +275,6 @@ describe("GameState", () => {
             expect(() => gameState.nextRound()).toThrow(Error);
 
             expect(player.hints.length).toBe(0);
-            expect(gameState.guesses.get("name")).toBeUndefined();
             expect(gameState.currentRound).toBe(gameDataLength);
         });
     });

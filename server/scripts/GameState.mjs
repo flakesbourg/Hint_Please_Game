@@ -4,7 +4,7 @@ import fs from "fs"
 export default class GameState {
     constructor(gameDataPath) {
         this.players = [];
-        this.guesses = new Map();
+        this.guesses = [];
         this.currentRound = 0;
         this.gameData = JSON.parse(fs.readFileSync(gameDataPath).toString());
     }
@@ -20,7 +20,7 @@ export default class GameState {
             throw new Error("Player with this name already exists");
 
         this.players.push(player);
-        this.guesses.set(player.name, undefined);
+        this.guesses.push({player: player.name, guess: undefined});
     }
 
     getPlayer(name) {
@@ -38,9 +38,9 @@ export default class GameState {
 
         this.currentRound++;
         this.players.forEach((elem) => elem.hints = []);
-        let resetGuesses = new Map();
+        let resetGuesses = [];
         this.guesses.forEach((value, key) => {
-            resetGuesses.set(key, undefined);
+            resetGuesses.push({player: key, guess: undefined});
         });
         this.guesses = resetGuesses;
     }
@@ -84,8 +84,12 @@ export default class GameState {
 
         if (!guess || typeof guess !== "string")
             throw new Error("guess is unvalid");
-        
-        this.guesses.set(player.name, guess);
+
+        for (let i = 0; i < this.guesses.length; i++) {
+            if(this.guesses[i].player === player.name) {
+                this.guesses[i] = {player: player.name, guess: guess};
+            }
+        }
     }
 
     getHints() {

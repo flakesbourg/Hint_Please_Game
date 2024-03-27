@@ -8,7 +8,8 @@ import { CreateRoom } from './components/CreateRoom';
 
 function App() {
   const [isConnected, setIsConnected] = useState(socket.connected);
-  const [role, setRole] = useState("");
+  const [gameState, setGameState] = useState(null);
+  const [playerState, setPlayerState] = useState(null);
 
   useEffect(() => {
     function onConnect() {
@@ -28,12 +29,31 @@ function App() {
     }
   }, []);
 
+  function renderScreen() {
+    if (gameState) {
+      console.log(gameState);
+      return (
+        <>
+        <h1>Ciao</h1>
+        </>
+      )
+    } else if (playerState) {
+
+    } else {
+      return (
+        <>
+          <ConnectionState isConnected={ isConnected } />
+          <ConnectionManager />
+          <JoinGame setPlayerState={ setPlayerState }/>
+          <CreateRoom setGameState={ setGameState }/>
+        </>
+      );
+    }
+  }
+
   return (
     <div className="App">
-      <ConnectionState isConnected={ isConnected } />
-      <ConnectionManager />
-      <JoinGame />
-      <CreateRoom />
+      {renderScreen()}
     </div>
   );
 }

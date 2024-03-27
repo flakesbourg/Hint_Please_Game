@@ -98,7 +98,7 @@ function updateGameState(socket) {
         game.players.forEach((player) => {
             let otherPlayers = game.gameState.getAllOtherPlayers(player.name);
             console.log(otherPlayers);
-            player.socket.emit("playerGameStateUpdated", {name: player.name, gameId: gameId, players: otherPlayers, hints: hints});
+            player.socket.emit("playerGameStateUpdated", {player: game.gameState.getPlayer(player.name), gameId: gameId, players: otherPlayers, hints: hints});
         });
     }
 }

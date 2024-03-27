@@ -1,18 +1,22 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import { socket } from "../socket";
 
-socket.on("gameCreated", (data) => {
-    console.log(data)
-});
+export function CreateRoom({ setGameState }) {
+    useEffect(() => {
+        socket.on("gameCreated", (data) => {
+            console.log(data)
+        });
+        
+        socket.on("hostGameStateUpdated", (data) => {
+            console.log(data);
+            setGameState(data);
+        });
 
-socket.on("hostGameStateUpdated", (data) => {
-    console.log(data);
-});
-
-export function CreateRoom() {
-    const [playerName, setPlayerName] = useState("");
-    const [gameId, setGameId] = useState("");
-    const [isLoading, setIsLoading] = useState(false);
+        return () => {
+            socket.off("gameCreated");
+            socket.off("hostGameStateUpdated");
+        }
+      }, [setGameState]);
 
     function onSubmit(event) {
         event.preventDefault();
@@ -22,7 +26,7 @@ export function CreateRoom() {
 
     return (
         <form onSubmit={ onSubmit }>
-            <button type="submit" disabled={ isLoading }>Neuen Raum erstellen</button>
+            <button type="submit">Neuen Raum erstellen</button>
         </form>
     )
 }
