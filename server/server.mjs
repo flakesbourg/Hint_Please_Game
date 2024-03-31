@@ -2,8 +2,9 @@ import express from "express";
 import bodyParser from "body-parser";
 import { createServer } from "http";
 import { Server } from "socket.io";
-import GameState from "./scripts/GameState.mjs";
-import Player from "./scripts/Player.mjs";
+import { getGameIdFromSocket } from "./scripts/socketFunctions.mjs";
+import { addPlayerFunctions } from "./scripts/addPlayerFunctions.mjs";
+import { addHostFunctions } from "./scripts/addHostFunctions.mjs";
 
 const app = express();
 app.use(bodyParser);
@@ -19,39 +20,12 @@ const io = new Server(httpServer, {
 const gameRooms = new Map();
 
 io.sockets.on("connection", (socket) => {
-    socket.on("createGame", () => {
-        const gameId = "" + Math.round(Math.random() * 1000);
-        let gameState = new GameState('./scripts/testData/test.json');
-        socket.join(gameId);
-        gameRooms.set(gameId, {host: socket, gameState: gameState, players: new Set()});
-        socket.emit("gameCreated", {gameId: gameId, gameState: gameState});
-    });
+    addPlayerFunctions(socket, gameRooms, io);
 
-    socket.on("joinGame", (data) => {
-        const gameRoom = gameRooms.get(data.gameId);
-
-        if (!gameRoom) {
-            socket.emit("error", "room not found");
-            return;
-        }
-
-        if (!data.name) {
-            socket.emit("error", "name unvalid");
-            return;
-        }
-            
-        try{  
-            gameRoom.gameState.addPlayer(new Player(data.name));
-            socket.join(data.gameId);
-            gameRoom.players.add({socket: socket, name: data.name});
-            updateGameState(socket);
-        } catch (error) {
-            socket.emit("error", error.message);
-        }
-    });
+    addHostFunctions(socket, gameRooms, io);
 
     socket.on('disconnect', () => {
-        const gameId = getGameIdFromSocket(socket);
+        const gameId = getGameIdFromSocket(socket, io);
         if (!gameId) return;
 
         const gameRoom = gameRooms.get(gameId);
@@ -77,28 +51,3 @@ io.sockets.on("connection", (socket) => {
 });
 
 httpServer.listen(PORT);
-
-function getGameIdFromSocket(socket) {
-    const rooms = io.sockets.adapter.rooms;
-    for (const roomId of rooms.keys()) {
-        if (roomId != socket.id && rooms.get(roomId).has(socket.id)) {
-            return roomId;
-        }
-    }
-    return null;
-}
-
-function updateGameState(socket) {
-    let gameId = getGameIdFromSocket(socket);
-    let game = gameRooms.get(gameId);
-
-    if (game) {
-        let hints = game.gameState.getHints();
-        game.host.emit("hostGameStateUpdated", game.gameState);
-        game.players.forEach((player) => {
-            let otherPlayers = game.gameState.getAllOtherPlayers(player.name);
-            console.log(otherPlayers);
-            player.socket.emit("playerGameStateUpdated", {player: game.gameState.getPlayer(player.name), gameId: gameId, players: otherPlayers, hints: hints});
-        });
-    }
-}

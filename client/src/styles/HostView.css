@@ -1,0 +1,126 @@
+.correctAnswerContainer {
+    width: 90%;
+    background-color: var(--main-color-secondary);
+    margin: auto;
+    border-radius: var(--border-radius);
+    margin-top: 20px;
+}
+
+.correctAnswer {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.correctAnswer .answer {
+    font-size: var(--font-medium);
+    margin-left: 10px;
+}
+
+.nextRoundButton {
+    width: 50%;
+}
+
+.playerContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.outerPlayerCard {
+    width: 90%;
+    background-color: var(--main-color-secondary);
+    display: flex;
+    justify-content: center;
+    border-radius: var(--border-radius);
+    margin: 15px 0;
+}
+
+.playerCard {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    width: 90%;
+    margin: 20px 0;
+}
+
+.playerName {
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.playerBalance {
+    background-color: yellow;
+    box-shadow: var(--box-shadow);
+    border-radius: var(--border-radius);
+}
+
+.playerBalance h3 {
+    margin: 10px 35px;
+    color: black;
+    font-size: var(--font-medium);
+}
+
+.playerGuessHeadline {
+    margin-bottom: 0;
+}
+
+.playerGuess {
+    width: 100%;
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin-bottom: 15px;
+}
+
+.playerGuess h3 {
+    margin: 0;
+    color: black;
+    text-align: start;
+    overflow: hidden;
+    padding: 15px 20px;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
+}
+
+.correctAnswerButton {
+    width: 100%;
+    margin-bottom: 0;
+}
+
+@media (min-width: 700px) {
+    .correctAnswerContainer {
+        width: 70%;
+    }
+
+    .playerContainer {
+        flex-direction: row;
+        justify-content: space-evenly;
+        flex-wrap: wrap;
+    }
+
+    .outerPlayerCard {
+        width: 45%;
+    }
+}
+
+@media (min-width: 1000px) {
+    .correctAnswerContainer {
+        width: 50%;
+    }
+
+    .outerPlayerCard {
+        width: 30%;
+    }
+}
+
+@media (min-width: 1800px) {
+    .correctAnswerContainer {
+        width: 30%;
+    }
+
+    .outerPlayerCard {
+        width: 23%;
+    }
+}

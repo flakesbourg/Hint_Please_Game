@@ -2,13 +2,33 @@
     {
         "answer": "Mario Kart 8",
         "hints": [{
-            "category": "Publisher and Developer",
-            "hint": "Nintendo",
-            "price": 3
+            "category": "Release Year",
+            "hint": "2013",
+            "price": 2
+        }, {
+            "category": "Genre",
+            "hint": "Arcade Racer",
+            "price": 2
         }, {
             "category": "Ingame Places",
-            "hint": "Bowsers Castle, ",
+            "hint": "Mute City, Twisted Mansion and Ice Ice Outpost",
             "price": 2
+        }, {
+            "category": "Publisher and Developer",
+            "hint": "Nintendo",
+            "price": 4
+        },{
+            "category": "3 Characters",
+            "hint": "Mario, Donkey Kong, Link",
+            "price": 4
+        },{
+            "category": "Consoles",
+            "hint": "Wii U and Switch",
+            "price": 5
+        },{
+            "category": "Test",
+            "hint": "Description",
+            "price": 5
         }]
     },
     {

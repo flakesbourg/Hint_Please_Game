@@ -4,7 +4,6 @@ import fs from "fs"
 export default class GameState {
     constructor(gameDataPath) {
         this.players = [];
-        this.guesses = [];
         this.currentRound = 0;
         this.gameData = JSON.parse(fs.readFileSync(gameDataPath).toString());
     }
@@ -20,7 +19,6 @@ export default class GameState {
             throw new Error("Player with this name already exists");
 
         this.players.push(player);
-        this.guesses.push({player: player.name, guess: undefined});
     }
 
     getPlayer(name) {
@@ -37,12 +35,10 @@ export default class GameState {
             throw new Error("already the last round");
 
         this.currentRound++;
-        this.players.forEach((elem) => elem.hints = []);
-        let resetGuesses = [];
-        this.guesses.forEach((value, key) => {
-            resetGuesses.push({player: key, guess: undefined});
+        this.players.forEach((player) =>{
+            player.hints = [];
+            player.guess = "";
         });
-        this.guesses = resetGuesses;
     }
 
     playerBuysHint(name, hintNumber) {
@@ -78,18 +74,18 @@ export default class GameState {
 
     playerMakesGuess(name, guess) {
         let player = this.getPlayer(name);
+        guess = guess.trim();
 
         if (!player)
             throw new Error("player is unvalid");
 
-        if (!guess || typeof guess !== "string")
+        if (typeof guess !== "string")
             throw new Error("guess is unvalid");
 
-        for (let i = 0; i < this.guesses.length; i++) {
-            if(this.guesses[i].player === player.name) {
-                this.guesses[i] = {player: player.name, guess: guess};
-            }
-        }
+        if (!guess)
+            guess = "";
+
+        player.guess = guess;
     }
 
     getHints() {
@@ -97,7 +93,7 @@ export default class GameState {
         let result = [];
 
         for (let i = 0; i < hints.length; i++) {
-            result.push({ category: this.gameData[this.currentRound]["hints"][i]["category"], price: this.gameData[this.currentRound]["hints"][i]["price"] });
+            result.push({ category: this.gameData[this.currentRound]["hints"][i]["category"], price: this.gameData[this.currentRound]["hints"][i]["price"], hintNumber: i });
         }
 
         return result;

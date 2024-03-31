@@ -1,12 +1,8 @@
-import React, {useEffect, useState} from "react";
-import { socket } from "../socket";
+import React, {useEffect} from "react";
+import { socket } from "../../socket";
 
 export function CreateRoom({ setGameState }) {
     useEffect(() => {
-        socket.on("gameCreated", (data) => {
-            console.log(data)
-        });
-        
         socket.on("hostGameStateUpdated", (data) => {
             console.log(data);
             setGameState(data);
@@ -26,7 +22,9 @@ export function CreateRoom({ setGameState }) {
 
     return (
         <form onSubmit={ onSubmit }>
-            <button type="submit">Neuen Raum erstellen</button>
+            <h2 className="createHeadline">Host a new Game</h2>
+            <button type="submit">create</button>
+            <div className="dividerLine"></div>
         </form>
     )
 }

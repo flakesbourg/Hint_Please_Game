@@ -1,0 +1,119 @@
+:root{
+    --main-width: 70%;
+    --font-big: 30px;
+    --font-medium: 25px;
+    --font-small: 20px;
+    --border-radius: 20px;
+    --box-shadow: black 0px 0 15px 0px;
+    --main-color-primary: #1c1b1b;
+    --main-color-secondary: #2f2f2f;
+    --highlight-color-primary: #91D1FF;
+    --highlight-color-secondary: #01A4FF;
+}
+
+body {
+    margin: 0;
+    font-family: "JetBrains Mono";
+    background-color: var(--main-color-primary);
+    color: white;
+}
+
+h2 {
+    font-size: 28px;
+}
+
+button {
+    border-style: none;
+    border-radius: 13px;
+    padding: 10px 0;
+    background-color: var(--highlight-color-primary);
+    font-size: 26px;
+    font-family: "JetBrains Mono";
+    width: 80%;
+    margin-bottom: 20px;
+}
+
+button:hover{
+    cursor: pointer;
+    background-color: var(--highlight-color-secondary);
+}
+
+.startHeader {
+    background-color: var(--main-color-secondary);
+    padding: 30px 50px;
+    box-shadow: var(--box-shadow);
+}
+
+.startHeadline {
+    margin: 0;
+    font-size: 30px;
+}
+
+
+.dividerLine {
+    height: 2px;
+    width: 90%;
+    background-color: white;
+    margin: 20px auto;
+}
+
+.joinForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.joinInput {
+    border-radius: 15px;
+    border-style: none;
+    padding: 10px 0px;
+    margin-bottom: 10px;
+    font-size: 26px;
+    width: 80%;
+    font-family: "JetBrains Mono";
+    color: white;
+    background-color: var(--main-color-secondary);
+}
+
+@media (min-width: 500px) {
+    button {
+        width: 50%
+    }
+
+    .joinInput {
+        width: 50%;
+    }
+
+    .dividerLine{
+        width: 60%;
+    }
+}
+
+@media (min-width: 900px) {
+    button {
+        width: 30%
+    }
+
+    .joinInput {
+        width: 30%;
+    }
+
+    .dividerLine{
+        width: 40%;
+    }
+}
+
+@media (min-width: 1400px) {
+    button {
+        width: 20%
+    }
+
+    .joinInput {
+        width: 20%;
+    }
+
+    .dividerLine{
+        width: 30%;
+    }
+}

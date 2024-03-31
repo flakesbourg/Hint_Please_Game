@@ -1,0 +1,219 @@
+/* General */
+.playerViewContainer {
+    width: 100%;
+}
+
+.playerRightSide,
+.playerLeftSide {
+    width: var(--main-width);
+    margin: 30px auto;
+}
+
+.playerHeader {
+    background-color: var(--main-color-secondary);
+    padding: 30px 50px;
+    display: flex;
+    justify-content: space-between;
+    box-shadow: var(--box-shadow);
+    position: sticky;
+    top: 0;
+}
+
+.playerHeadline {
+    font-size: var(--font-medium);
+    margin: 0;
+}
+
+/* PlayerInfo */
+
+.playerInfoContainer {
+    margin: auto;
+}
+
+.playerInfoHeadline {
+    margin: 0;
+    font-size: var(--font-medium);
+    width: 90%;
+    text-align: start;
+}
+
+.playerInfoCard {
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    background-color: var(--main-color-secondary);
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.playerInfoSubHeadline {
+    margin: 0;
+    text-align: start;
+    font-size: var(--font-small);
+}
+
+.playerInfo {
+    font-size: var(--font-small);
+    margin: 0;
+    margin-bottom: 10px;
+    padding-left: 40px;
+    text-align: start;
+}
+
+/* Other Players */
+
+.otherPlayer {
+    display: flex;
+    border-radius: var(--border-radius);
+    justify-content: space-between;
+    padding: 0 20px;
+    margin-bottom: 15px;
+    background-color: var(--main-color-secondary);
+    box-shadow: var(--box-shadow);
+}
+
+.otherPlayerBalanceContainer {
+    display: flex;
+}
+
+.otherPlayerBalance {
+    background-color: yellow;
+    color: black;
+    padding: 5px 25px;
+    border-radius: var(--border-radius);
+    font-size: var(--font-medium);
+    margin: auto;
+}
+
+/* Current Balance */
+
+.currentBalanceContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: var(--font-medium);
+}
+
+.currentBalanceContainer h3 {
+    font-size: var(--font-medium);
+    margin: 0;
+}
+
+.currentBalance{
+    margin: 0;
+    background-color: yellow;
+    color: black;
+    padding: 5px 30px;
+    box-shadow: var(--box-shadow);
+    border-radius: var(--border-radius);
+}
+
+/* Guess Component */
+
+.makeGuess {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin: 10px 0;
+}
+
+.makeGuess h3{
+    font-size: var(--font-medium);
+    margin: 0;
+}
+
+.makeGuess input[type="text"] {
+    width: 100%;
+    padding: 0;
+    font-size: var(--font-medium);
+    font-family: "JetBrains Mono";
+    border-radius: var(--border-radius);
+    padding: 15px 0;
+    box-shadow: var(--box-shadow);
+}
+
+/* Hint Component */
+
+.hintContainer{
+    margin: 20px 0;
+}
+
+.hintHeadline {
+    font-size: var(--font-medium);
+    margin: 0;
+    width: fit-content;
+}
+
+.singleHint{
+    display: flex;
+    justify-content: space-between;
+    border-radius: var(--border-radius);
+    margin-bottom: 10px;
+    padding: 0 10px;
+    text-align: start;
+    box-shadow: var(--box-shadow);
+    color: black;
+    background-color: var(--highlight-color-primary);
+}
+
+.singleHint:hover {
+    cursor: pointer;
+    background-color: var(--highlight-color-secondary);
+}
+
+.hintPrice {
+    display: flex;
+    align-items: center;
+}
+
+.hintPrice div {
+    margin: 0 15px;
+}
+
+.hintPrice h3 {
+    font-size: var(--font-small);
+    margin: 0;
+}
+
+.verticalDivider {
+    width: 2px;
+    height: 80%;
+    background-color: black;
+}
+
+@media (min-width: 800px) {
+    .playerViewContainer {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-evenly;
+    }
+
+    .playerRightSide,
+    .playerLeftSide {
+        width: 45%;
+        margin: 30px 0;
+    }
+
+    .playerHeadline,
+    .playerInfoHeadline,
+    .currentBalanceContainer,
+    .currentBalanceContainer h3,
+    .makeGuess h3,
+    .makeGuess input[type="text"],
+    .hintHeadline {
+        font-size: var(--font-big);
+    }
+}
+
+@media (min-width: 1200px) {
+    .playerInfo,
+    .hintPrice h3 {
+        font-size: var(--font-medium);
+    }
+
+    .otherPlayerName {
+        font-size: var(--font-medium);
+    }
+}
