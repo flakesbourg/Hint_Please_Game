@@ -31,7 +31,7 @@ export default class GameState {
     }
 
     nextRound() {
-        if (this.currentRound >= this.gameData.length)
+        if (this.currentRound + 1 >= this.gameData.length)
             throw new Error("already the last round");
 
         this.currentRound++;

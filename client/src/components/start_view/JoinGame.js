@@ -6,10 +6,6 @@ export function JoinGame({setPlayerState}) {
     const [gameId, setGameId] = useState("");
 
     useEffect(() => {
-        socket.on("error", (error) => {
-            console.log(error);
-        });
-
         socket.on("playerGameStateUpdated", (data) => {
             setPlayerState(data);
         });
@@ -31,7 +27,7 @@ export function JoinGame({setPlayerState}) {
             <h2>Join an existing Game</h2>
             <input className="joinInput" placeholder="Player Name" onChange={ e => setPlayerName(e.target.value) }/>
             <input className="joinInput" placeholder="GameID" onChange={ e => setGameId(e.target.value) }/>
-            <button type="submit">Spiel beitreten</button>
+            <button className="button" type="submit">Spiel beitreten</button>
         </form>
     )
 }

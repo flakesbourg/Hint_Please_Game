@@ -16,10 +16,6 @@ export function HostView({ setGameState, gameState }) {
         }
       }, [setGameState]);
 
-    /*function PlayerComponent() {
-        
-    }*/
-
     return (
         <>
         <PlayerHeader currentRound={gameState.state.currentRound} gameId={gameState.gameId}/>

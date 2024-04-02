@@ -1,14 +1,6 @@
 import { socket } from "../../socket";
 
 export default function HintComponent({hints}) {
-    /*function onChange(event) {
-        let newGuess = event.target.value;
-        if (!newGuess) {
-            newGuess = "";
-        }
-        socket.emit("makeGuess", event.target.value);
-    }*/
-
     function HintButton({hint}) {
         function playerBuysHint() {
             socket.emit("playerBuysHint", hint.hintNumber);

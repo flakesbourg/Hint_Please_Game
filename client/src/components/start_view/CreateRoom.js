@@ -9,7 +9,6 @@ export function CreateRoom({ setGameState }) {
         });
 
         return () => {
-            socket.off("gameCreated");
             socket.off("hostGameStateUpdated");
         }
       }, [setGameState]);
@@ -23,7 +22,7 @@ export function CreateRoom({ setGameState }) {
     return (
         <form onSubmit={ onSubmit }>
             <h2 className="createHeadline">Host a new Game</h2>
-            <button type="submit">create</button>
+            <button className="button" type="submit">create</button>
             <div className="dividerLine"></div>
         </form>
     )
