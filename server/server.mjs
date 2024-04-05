@@ -1,10 +1,11 @@
-import express from "express";
-import bodyParser from "body-parser";
-import { createServer } from "http";
-import { Server } from "socket.io";
-import { getGameIdFromSocket } from "./scripts/socketFunctions.mjs";
-import { addPlayerFunctions } from "./scripts/addPlayerFunctions.mjs";
-import { addHostFunctions } from "./scripts/addHostFunctions.mjs";
+import express from 'express';
+import { logger } from './scripts/logger.mjs';
+import bodyParser from 'body-parser';
+import { createServer } from 'http';
+import { Server } from 'socket.io';
+import { removeSocket } from './scripts/socketFunctions.mjs';
+import { addPlayerFunctions } from './scripts/addPlayerFunctions.mjs';
+import { addHostFunctions } from './scripts/addHostFunctions.mjs';
 
 const app = express();
 app.use(bodyParser);
@@ -12,42 +13,29 @@ app.use(bodyParser);
 const PORT = process.env.PORT || 5000;
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
-    cors: {
-        origin: "*"
-    }
+  transports: ['websocket'],
+  upgrade: false,
+  cors: {
+    origin: '*'
+  }
 });
 
 const gameRooms = new Map();
 
-io.sockets.on("connection", (socket) => {
-    addPlayerFunctions(socket, gameRooms, io);
+io.sockets.on('connection', (socket) => {
+  logger.info(`socket "${socket.id}" connected`);
 
-    addHostFunctions(socket, gameRooms, io);
+  addPlayerFunctions(socket, gameRooms, io);
 
-    socket.on('disconnect', () => {
-        const gameId = getGameIdFromSocket(socket, io);
-        if (!gameId) return;
+  addHostFunctions(socket, gameRooms, io);
 
-        const gameRoom = gameRooms.get(gameId);
+  socket.on('leaveGame', () => {
+    removeSocket(socket, gameRooms, io);
+  });
 
-        if (!gameRoom) return;
-
-        if (gameRoom.host === socket) {
-            // Wenn der Host das Spiel verlässt, alle anderen Benutzer benachrichtigen
-            gameRoom.players.forEach((player) => {
-                player.socket.emit("hostLeft");
-            });
-            gameRooms.delete(gameId); // Spiel aus der Liste der aktiven Spiele entfernen
-        } else {
-            // Wenn ein Spieler das Spiel verlässt, den Host benachrichtigen
-            gameRoom.players.forEach((player) => {
-                if (player.socket === socket) {
-                    gameRoom.players.delete(socket);
-                }
-            });
-            gameRoom.host.emit('playerLeft', socket.id);
-        }
-    });
+  socket.on('disconnect', () => {
+    logger.info(`socket "${socket.id}" disconnected`);
+  });
 });
 
 httpServer.listen(PORT);

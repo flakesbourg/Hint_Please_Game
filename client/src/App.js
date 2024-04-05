@@ -25,8 +25,18 @@ function App() {
         });
     });
 
+    const handleBeforeUnload = () => {
+      // Verbindung zum Socket schließen
+      socket.emit("leaveGame");
+      socket.disconnect();
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
     return () => {
         socket.off("error");
+        socket.off("leftGame");
+        window.removeEventListener('beforeunload', handleBeforeUnload);
     }
   }, [gameState, playerState]);
 
@@ -35,7 +45,7 @@ function App() {
       return (
         <HostView setGameState={setGameState} gameState={gameState} />
       )
-    } else if (playerState) {
+    } else if (playerState !== null) {
       return (
         <PlayerView setPlayerState={setPlayerState} playerState={playerState} />
       )

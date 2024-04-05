@@ -15,15 +15,25 @@ export function PlayerView({ setPlayerState, playerState }) {
             setPlayerState(data);
         });
 
+        socket.on("leftGame", () => {
+            setPlayerState(null);
+        });
+
         return () => {
             socket.off("playerGameStateUpdated");
+            socket.off("leftGame");
         }
-      }, [setPlayerState]);
+    }, [playerState]);
+
+    function leaveGame () {
+        socket.emit("leaveGame");
+    }
 
     return (
         <div>
             <PlayerHeader currentRound={playerState.round} gameId={playerState.gameId}/>
             <div className="playerViewContainer">
+                <button onClick={leaveGame}>leave</button>
                 <div className="playerRightSide">
                     <CurrentBalance balance={playerState.player.balance} />
                     <GuessComponent setGuess={setGuess} guess={guess} />
