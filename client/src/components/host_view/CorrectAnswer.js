@@ -1,4 +1,5 @@
 import { socket } from "../../socket";
+import React from "react";
 
 export function CorrectAnswer ({gameState}) {
     let answer = gameState.state.gameData[gameState.state.currentRound]["answer"];

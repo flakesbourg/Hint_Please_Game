@@ -1,17 +1,7 @@
-import React, {useEffect} from "react";
+import React from "react";
 import { socket } from "../../socket";
 
-export function CreateRoom({ setGameState }) {
-    useEffect(() => {
-        socket.on("hostGameStateUpdated", (data) => {
-            console.log(data);
-            setGameState(data);
-        });
-
-        return () => {
-            socket.off("hostGameStateUpdated");
-        }
-      }, [setGameState]);
+export function CreateRoom() {
 
     function onSubmit(event) {
         event.preventDefault();

@@ -33,6 +33,7 @@ export function removeSocket (socket, gameRooms, io) {
   if (gameRoom.host === socket) {
     // Wenn der Host das Spiel verlässt, alle anderen Benutzer benachrichtigen
     gameRoom.players.forEach((player) => {
+      player.socket.leave(gameId);
       player.socket.emit('hostLeft');
     });
     gameRooms.delete(gameId); // Spiel aus der Liste der aktiven Spiele entfernen

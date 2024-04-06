@@ -2,9 +2,10 @@ import React from "react";
 import { JoinGame } from "./JoinGame";
 import { CreateRoom } from "./CreateRoom";
 import { Header } from "./Header";
+import PropTypes from "prop-types";
 import "../../styles/StartView.css"
 
-export function StartView({setPlayerState, setGameState}) {
+function StartView({setPlayerState, setGameState}) {
     return (
         <>
         <Header />
@@ -13,3 +14,10 @@ export function StartView({setPlayerState, setGameState}) {
         </>
     )
 }
+
+StartView.propTypes = {
+    setPlayerState: PropTypes.func.isRequired,
+    setGameState: PropTypes.func.isRequired
+};
+
+export { StartView };

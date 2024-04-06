@@ -3,9 +3,9 @@ import { logger } from './scripts/logger.mjs';
 import bodyParser from 'body-parser';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
-import { removeSocket } from './scripts/socketFunctions.mjs';
-import { addPlayerFunctions } from './scripts/addPlayerFunctions.mjs';
-import { addHostFunctions } from './scripts/addHostFunctions.mjs';
+import { removeSocket } from './scripts/socket_functions/socketFunctions.mjs';
+import { addPlayerFunctions } from './scripts/socket_functions/addPlayerFunctions.mjs';
+import { addHostFunctions } from './scripts/socket_functions/addHostFunctions.mjs';
 
 const app = express();
 app.use(bodyParser);
@@ -39,3 +39,4 @@ io.sockets.on('connection', (socket) => {
 });
 
 httpServer.listen(PORT);
+logger.info(`server listening on port ${PORT}`);

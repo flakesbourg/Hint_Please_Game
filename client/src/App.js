@@ -25,6 +25,14 @@ function App() {
         });
     });
 
+    socket.on("playerGameStateUpdated", (data) => {
+      setPlayerState(data);
+    });
+
+    socket.on("hostGameStateUpdated", (data) => {
+      setGameState(data);
+    });
+
     const handleBeforeUnload = () => {
       // Verbindung zum Socket schließen
       socket.emit("leaveGame");
@@ -35,10 +43,11 @@ function App() {
 
     return () => {
         socket.off("error");
-        socket.off("leftGame");
+        socket.off("playerGameStateUpdated");
+        socket.off("hostGameStateUpdated");
         window.removeEventListener('beforeunload', handleBeforeUnload);
     }
-  }, [gameState, playerState]);
+  }, []);
 
   function renderScreen() {
     if (gameState) {

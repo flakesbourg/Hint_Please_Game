@@ -5,25 +5,26 @@ import { PlayerInfo } from "./PlayerInfo";
 import { CurrentBalance } from "./CurrentBalance";
 import HintComponent from "./HintComponent";
 import GuessComponent from "./GuessComponent";
+import PropTypes from "prop-types";
 import "../../styles/PlayerView.css";
 
-export function PlayerView({ setPlayerState, playerState }) {
+function PlayerView({ setPlayerState, playerState }) {
     const [guess, setGuess] = useState("");
 
     useEffect(() => {
-        socket.on("playerGameStateUpdated", (data) => {
-            setPlayerState(data);
-        });
-
         socket.on("leftGame", () => {
             setPlayerState(null);
         });
 
+        socket.on("hostLeft", () => {
+            setPlayerState(null);
+        });
+
         return () => {
-            socket.off("playerGameStateUpdated");
             socket.off("leftGame");
+            socket.off("hostLeft");
         }
-    }, [playerState]);
+    }, []);
 
     function leaveGame () {
         socket.emit("leaveGame");
@@ -46,3 +47,18 @@ export function PlayerView({ setPlayerState, playerState }) {
         </div>
     )
 }
+
+PlayerView.propTypes = {
+    setPlayerState: PropTypes.func.isRequired,
+    playerState: PropTypes.shape({
+        round: PropTypes.number.isRequired,
+        gameId: PropTypes.string.isRequired,
+        player: PropTypes.shape({
+            balance: PropTypes.number.isRequired,
+        }),
+        hints: PropTypes.array.isRequired,
+        players: PropTypes.array.isRequired
+    }).isRequired,
+};
+
+export {PlayerView};

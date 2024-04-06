@@ -1,20 +1,9 @@
-import React, {useState, useEffect} from "react";
+import React, {useState } from "react";
 import { socket } from "../../socket";
 
-export function JoinGame({setPlayerState}) {
+function JoinGame() {
     const [playerName, setPlayerName] = useState("");
     const [gameId, setGameId] = useState("");
-
-    useEffect(() => {
-        socket.on("playerGameStateUpdated", (data) => {
-            setPlayerState(data);
-        });
-
-        return () => {
-            socket.off("playerGameStateUpdated");
-            socket.off("error");
-        }
-      }, [setPlayerState]);
 
     function onSubmit(event) {
         event.preventDefault();
@@ -31,3 +20,5 @@ export function JoinGame({setPlayerState}) {
         </form>
     )
 }
+
+export {JoinGame};
