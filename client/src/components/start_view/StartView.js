@@ -1,23 +1,23 @@
 import React from "react";
-import { JoinGame } from "./JoinGame";
-import { CreateRoom } from "./CreateRoom";
-import { Header } from "./Header";
-import PropTypes from "prop-types";
-import "../../styles/StartView.css"
+import JoinGame from "./JoinGame";
+import CreateRoom from "./CreateRoom";
+import Header from "./Header";
+import "./StartView.css"
 
-function StartView({setPlayerState, setGameState}) {
+/**
+ * This Component displays different forms to either create or join a game.
+ * 
+ * @component
+ * @returns {JSX.Element} The rendered component.
+ */
+function StartView() {
     return (
         <>
         <Header />
-        <CreateRoom setGameState={ setGameState }/>
-        <JoinGame setPlayerState={ setPlayerState }/>
+        <CreateRoom />
+        <JoinGame />
         </>
     )
 }
 
-StartView.propTypes = {
-    setPlayerState: PropTypes.func.isRequired,
-    setGameState: PropTypes.func.isRequired
-};
-
-export { StartView };
+export default StartView;

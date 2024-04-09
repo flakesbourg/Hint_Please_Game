@@ -1,8 +1,8 @@
 import './App.css';
 import React, {useState, useEffect} from "react";
-import { HostView } from './components/host_view/HostView';
-import { PlayerView } from './components/player_view/PlayerView';
-import { StartView } from './components/start_view/StartView';
+import HostView from './components/host_view/HostView';
+import PlayerView from './components/player_view/PlayerView';
+import StartView from './components/start_view/StartView';
 import { socket } from './socket';
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
@@ -33,6 +33,14 @@ function App() {
       setGameState(data);
     });
 
+    socket.on("leftGame", () => {
+      setPlayerState(null);
+    });
+
+    socket.on("hostLeft", () => {
+      setPlayerState(null);
+    });
+
     const handleBeforeUnload = () => {
       // Verbindung zum Socket schließen
       socket.emit("leaveGame");
@@ -45,22 +53,33 @@ function App() {
         socket.off("error");
         socket.off("playerGameStateUpdated");
         socket.off("hostGameStateUpdated");
+        socket.off("leftGame");
+        socket.off("hostLeft");
         window.removeEventListener('beforeunload', handleBeforeUnload);
     }
   }, []);
 
+  /**
+   * Component that renders a certain view depending on gameState and playerState.
+   * If the gameState isnt null the HostView will be rendered.
+   * If the playerState isnt null the PlayerView will be rendered.
+   * Or else the StartView will be rendered.
+   * 
+   * @component
+   * @returns {JSX.Element} The rendered view component.
+   */
   function renderScreen() {
     if (gameState) {
       return (
-        <HostView setGameState={setGameState} gameState={gameState} />
+        <HostView gameState={gameState} />
       )
     } else if (playerState !== null) {
       return (
-        <PlayerView setPlayerState={setPlayerState} playerState={playerState} />
+        <PlayerView playerState={playerState} />
       )
     } else {
       return (
-        <StartView setPlayerState={ setPlayerState } setGameState={ setGameState } />
+        <StartView />
       );
     }
   }

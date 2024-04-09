@@ -65,6 +65,7 @@ class GameState {
     this.players.forEach((player) => {
       player.hints = [];
       player.guess = '';
+      player.hintNumbers = [];
     });
   }
 
@@ -86,6 +87,8 @@ class GameState {
 
     if (!player) { throw new Error('player is unvalid'); }
 
+    if (player.hintNumbers.includes(hintNumber)) { throw new Error('player cant buy the same hint twice'); }
+
     if (player.hints.length >= 2) { throw new Error('player cant buy another hint'); }
 
     const price = hint.price;
@@ -94,6 +97,7 @@ class GameState {
 
     player.changeBalance(-price);
     player.hints.push({ category: this.gameData[this.currentRound].hints[hintNumber].category, hint: this.gameData[this.currentRound].hints[hintNumber].hint });
+    player.hintNumbers.push(hintNumber);
   }
 
   /**

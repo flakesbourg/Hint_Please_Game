@@ -1,7 +1,13 @@
 import React from "react";
 import { socket } from "../../socket";
 
-export function CreateRoom() {
+/**
+ * Form component that creates a new game on click.
+ * 
+ * @component
+ * @returns {JSX.Element} The rendered component.
+ */
+export default function CreateRoom() {
 
     function onSubmit(event) {
         event.preventDefault();

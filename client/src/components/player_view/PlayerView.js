@@ -1,64 +1,59 @@
-import React, {useEffect, useState } from "react";
-import { socket } from "../../socket";
-import { PlayerHeader } from "../GameHeader";
-import { PlayerInfo } from "./PlayerInfo";
-import { CurrentBalance } from "./CurrentBalance";
+import React from "react";
+import PlayerHeader from "../GameHeader";
+import PlayerInfo from "./PlayerInfo";
+import CurrentBalance from "./CurrentBalance";
+import LeaveButton from "./LeaveButton";
 import HintComponent from "./HintComponent";
 import GuessComponent from "./GuessComponent";
 import PropTypes from "prop-types";
-import "../../styles/PlayerView.css";
+import "./PlayerView.css";
 
-function PlayerView({ setPlayerState, playerState }) {
-    const [guess, setGuess] = useState("");
-
-    useEffect(() => {
-        socket.on("leftGame", () => {
-            setPlayerState(null);
-        });
-
-        socket.on("hostLeft", () => {
-            setPlayerState(null);
-        });
-
-        return () => {
-            socket.off("leftGame");
-            socket.off("hostLeft");
-        }
-    }, []);
-
-    function leaveGame () {
-        socket.emit("leaveGame");
-    }
-
+/**
+ * Component with all the relevant information for the player
+ * including player information, available hints, guess input and more.
+ * 
+ * @component
+ * @param {Object} props
+ * @param {Object} props.playerState The state of the game containing information relevant for the player.
+ * @param {number} props.playerState.round The current round of the game.
+ * @param {string} props.playerState.gameId The Id of the game.
+ * @param {Array} props.playerState.hints List of available Hints with category and price.
+ * @param {Array} props.playerState.players List of all otherPlayers with name and balance.
+ * @param {Object} props.playerState.player Object with information about player.
+ * @param {number} props.playerState.player.balance Balance of player.
+ * @param {Array} props.playerState.player.hintNumbers Hints that the player already bought
+ * @returns {JSX.Element} The rendered component
+ */
+function PlayerView({ playerState }) {
     return (
-        <div>
+        <>
             <PlayerHeader currentRound={playerState.round} gameId={playerState.gameId}/>
             <div className="playerViewContainer">
-                <button onClick={leaveGame}>leave</button>
                 <div className="playerRightSide">
                     <CurrentBalance balance={playerState.player.balance} />
-                    <GuessComponent setGuess={setGuess} guess={guess} />
-                    <HintComponent hints={playerState.hints} />
+                    <GuessComponent />
+                    <HintComponent hints={playerState.hints} boughtHints={playerState.player.hintNumbers} />
                 </div>
                 <div className="playerLeftSide">
                     <PlayerInfo  myPlayer={playerState.player} otherPlayers={playerState.players} />
                 </div>
             </div>
-        </div>
+            <LeaveButton />
+        </>
     )
 }
 
 PlayerView.propTypes = {
-    setPlayerState: PropTypes.func.isRequired,
     playerState: PropTypes.shape({
         round: PropTypes.number.isRequired,
         gameId: PropTypes.string.isRequired,
         player: PropTypes.shape({
             balance: PropTypes.number.isRequired,
+            hintNumbers: PropTypes.array.isRequired
         }),
         hints: PropTypes.array.isRequired,
         players: PropTypes.array.isRequired
     }).isRequired,
 };
 
-export {PlayerView};
+export default PlayerView;

@@ -1,3 +1,5 @@
+import { logger } from '../logger.mjs';
+
 export function getGameIdFromSocket (socket, io) {
   const rooms = io.sockets.adapter.rooms;
   for (const roomId of rooms.keys()) {
@@ -37,6 +39,7 @@ export function removeSocket (socket, gameRooms, io) {
       player.socket.emit('hostLeft');
     });
     gameRooms.delete(gameId); // Spiel aus der Liste der aktiven Spiele entfernen
+    logger.info(`game "${gameId}": host "${socket.id}" left the game`);
   } else {
     // Wenn ein Spieler das Spiel verlässt, den Host benachrichtigen
     gameRoom.players.forEach((player) => {
@@ -46,6 +49,7 @@ export function removeSocket (socket, gameRooms, io) {
           return item !== gameRoom.gameState.getPlayer(player.name);
         });
         socket.emit('leftGame');
+        logger.info(`game "${gameId}": player "${socket.id}" left the game`);
       }
     });
     updateGameState(gameRoom.host, gameRooms, io);

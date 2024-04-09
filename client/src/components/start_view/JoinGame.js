@@ -1,6 +1,13 @@
 import React, {useState } from "react";
 import { socket } from "../../socket";
 
+/**
+ * Form component which takes a name and a game id to join
+ * the corresponding game as player.
+ * 
+ * @component
+ * @returns {JSX.Element} The rendered component.
+ */
 function JoinGame() {
     const [playerName, setPlayerName] = useState("");
     const [gameId, setGameId] = useState("");
@@ -21,4 +28,4 @@ function JoinGame() {
     )
 }
 
-export {JoinGame};
+export default JoinGame;

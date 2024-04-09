@@ -39,11 +39,10 @@
 
 .playerInfoCard {
     border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow);
     background-color: var(--main-color-secondary);
     display: flex;
     flex-direction: column;
-    align-items: start;
+    align-items: flex-start;
     padding: 20px;
     margin-bottom: 20px;
 }
@@ -71,7 +70,6 @@
     padding: 0 20px;
     margin-bottom: 15px;
     background-color: var(--main-color-secondary);
-    box-shadow: var(--box-shadow);
 }
 
 .otherPlayerBalanceContainer {
@@ -106,7 +104,6 @@
     background-color: yellow;
     color: black;
     padding: 5px 30px;
-    box-shadow: var(--box-shadow);
     border-radius: var(--border-radius);
 }
 
@@ -115,7 +112,7 @@
 .makeGuess {
     display: flex;
     flex-direction: column;
-    align-items: start;
+    align-items: flex-start;
     margin: 10px 0;
 }
 
@@ -163,6 +160,11 @@
     background-color: var(--highlight-color-secondary);
 }
 
+.singleHint.disabledHint {
+    background-color: lightgrey;
+    cursor: default;
+}
+
 .hintPrice {
     display: flex;
     align-items: center;
@@ -173,7 +175,8 @@
 }
 
 .hintPrice h3 {
-    font-size: var(--font-small);
+    font-size: var(--font-medium);
+    padding-right: 10px;
     margin: 0;
 }
 
@@ -181,6 +184,25 @@
     width: 2px;
     height: 80%;
     background-color: black;
+}
+
+/* Leave Button */
+.leaveButton{
+    width: var(--main-width);
+    border-radius: var(--border-radius);
+    border: none;
+    padding: 10px 0;
+    font-size: var(--font-medium);
+    font-family: "JetBrains Mono";
+    margin-bottom: 20px;
+    background-color: rgb(255, 72, 72);
+    box-shadow: var(--box-shadow);
+}
+
+.leaveButton:hover,
+.leaveButton:active {
+    cursor: pointer;
+    background-color: rgb(250, 61, 61);
 }
 
 @media (min-width: 800px) {
@@ -205,6 +227,10 @@
     .hintHeadline {
         font-size: var(--font-big);
     }
+
+    .leaveButton{
+        width: 40%;
+    }
 }
 
 @media (min-width: 1200px) {
@@ -215,5 +241,9 @@
 
     .otherPlayerName {
         font-size: var(--font-medium);
+    }
+
+    .leaveButton{
+        width: 25%;
     }
 }

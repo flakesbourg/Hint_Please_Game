@@ -137,8 +137,20 @@ describe('GameState', () => {
       gameState.addPlayer(player);
 
       expect(() => gameState.playerBuysHint('name', hintNumber)).not.toThrow(Error);
+      expect(() => gameState.playerBuysHint('name', hintNumber + 1)).not.toThrow(Error);
+      expect(() => gameState.playerBuysHint('name', hintNumber + 2)).toThrow(Error);
+    });
+
+    test('player tries to buy the same hint twice', () => {
+      const player = new Player('name');
+      const hintNumber = 0;
+
+      gameState.addPlayer(player);
+
       expect(() => gameState.playerBuysHint('name', hintNumber)).not.toThrow(Error);
       expect(() => gameState.playerBuysHint('name', hintNumber)).toThrow(Error);
+      expect(player.hints.length).toBe(1);
+      expect(player.hintNumbers.has(hintNumber)).toBe(true);
     });
 
     test('call playerBuysHint but balance too low', () => {
@@ -149,12 +161,12 @@ describe('GameState', () => {
 
       expect(() => gameState.playerBuysHint('name', hintNumber)).not.toThrow(Error);
       expect(player.balance).toBe(8);
-      expect(() => gameState.playerBuysHint('name', hintNumber)).not.toThrow(Error);
+      expect(() => gameState.playerBuysHint('name', hintNumber + 1)).not.toThrow(Error);
       expect(player.balance).toBe(6);
       gameState.nextRound();
       expect(() => gameState.playerBuysHint('name', hintNumber)).not.toThrow(Error);
       expect(player.balance).toBe(2);
-      expect(() => gameState.playerBuysHint('name', hintNumber)).toThrow(Error);
+      expect(() => gameState.playerBuysHint('name', hintNumber + 1)).toThrow(Error);
       expect(player.balance).toBe(2);
     });
   });

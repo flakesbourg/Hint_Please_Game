@@ -31,31 +31,27 @@ export function addPlayerFunctions (socket, gameRooms, io) {
   });
 
   socket.on('playerIsCorrect', (data) => {
-    const gameId = getGameIdFromSocket(socket, io);
-    if (!gameId) return;
+    const [gameId, gameRoom] = getGameRoomFromSocket(socket, io, gameRooms);
 
-    const gameRoom = gameRooms.get(gameId);
-
-    if (!gameRoom) return;
+    if (!gameId || !gameRoom) return;
 
     if (gameRoom.host === socket) {
       const gameState = gameRoom.gameState;
       try {
         gameState.playerIsCorrect(data);
+        logger.info(`game "${gameId}": socket "${socket.id} is correct`);
         updateGameState(socket, gameRooms, io);
       } catch (error) {
+        logger.error(`game "${data.gameId}: "host tried to give points to "${socket.id}" --- ${error.message}`);
         socket.emit('error', error.message);
       }
     }
   });
 
   socket.on('makeGuess', (data) => {
-    const gameId = getGameIdFromSocket(socket, io);
-    if (!gameId) return;
+    const [gameId, gameRoom] = getGameRoomFromSocket(socket, io, gameRooms);
 
-    const gameRoom = gameRooms.get(gameId);
-
-    if (!gameRoom) return;
+    if (!gameId || !gameRoom) return;
 
     let name;
     gameRoom.players.forEach((elem) => {
@@ -68,17 +64,15 @@ export function addPlayerFunctions (socket, gameRooms, io) {
       gameRoom.gameState.playerMakesGuess(name, data);
       updateGameState(socket, gameRooms, io);
     } catch (error) {
+      logger.error(`game "${data.gameId}: "socket "${socket.id}" tried to make a guess --- ${error.message}`);
       socket.emit('error', error.message);
     }
   });
 
   socket.on('playerBuysHint', (data) => {
-    const gameId = getGameIdFromSocket(socket, io);
-    if (!gameId) return;
+    const [gameId, gameRoom] = getGameRoomFromSocket(socket, io, gameRooms);
 
-    const gameRoom = gameRooms.get(gameId);
-
-    if (!gameRoom) return;
+    if (!gameId || !gameRoom) return;
 
     let name;
     gameRoom.players.forEach((elem) => {
@@ -89,9 +83,30 @@ export function addPlayerFunctions (socket, gameRooms, io) {
 
     try {
       gameRoom.gameState.playerBuysHint(name, data);
+      logger.info(`game "${gameId}": socket "${socket.id} buys hint`);
       updateGameState(socket, gameRooms, io);
     } catch (error) {
+      logger.error(`game "${data.gameId}: "socket "${socket.id}" tried to buy a hint --- ${error.message}`);
       socket.emit('error', error.message);
     }
   });
+}
+
+function getGameRoomFromSocket(socket, io, gameRooms) {
+  const gameId = getGameIdFromSocket(socket, io);
+  if (!gameId) {
+    logger.error(`socket "${socket.id}" isnt playing a game`);
+    socket.emit("error", "player isnt playing a game");
+    return [null, null];
+  }
+
+  const gameRoom = gameRooms.get(gameId);
+
+  if (!gameRoom) {
+    logger.error(`socket "${socket.id}": game room doesnt exist`);
+    socket.emit('error', 'room not found');
+    return [null, null];
+  }
+
+  return [gameId, gameRoom];
 }

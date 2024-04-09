@@ -11,6 +11,7 @@ export default class Player {
     this.name = name;
     this.balance = 10;
     this.hints = [];
+    this.hintNumbers = [];
     this.guess = '';
   }
 
