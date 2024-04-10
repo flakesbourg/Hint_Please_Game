@@ -17,7 +17,7 @@ The following rules apply for the game:
 * If a player guessed correct, the players balance increases by 15.
 * The player with the highest credit by the end of the game wins.
 
-## How to Use
+## How to Play
 The following steps are different for every role.
 ### Start
 Click the "create"-button to create a new game lobby and the host view will be displayed.
