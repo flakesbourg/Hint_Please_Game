@@ -47,6 +47,9 @@ After the "join"-button in the start view is clicked and players joined, the fol
 <br></br>
 <img src="https://github.com/flakesbourg/hint_please_game/assets/112900790/61c771e9-0bcb-49e5-82e2-6f20b88af6d7" alt="Alt-Text" width="500" >
 <br></br>
+This view displays information about the players name, balance and bougth hints. 
+It also provides information about other players and their current balance.
+The player can buy hints by clicking on one of the hint buttons or make a guess by typing text into the text input.
 
 ---
 
