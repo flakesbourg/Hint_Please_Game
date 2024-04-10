@@ -26,11 +26,10 @@ Click the "create"-button to Create a new game lobby.
 <img src="https://github.com/flakesbourg/hint_please_game/assets/112900790/63f4822d-3836-4a39-b84a-7818edba0b3f" alt="Alt-Text" width="500" >
 <br></br>
 
-After the "create"-button is clicked the following view will be displayed:
+After the "create"-button is clicked and players joined, the following view will be displayed:
 <br></br>
 <img src="https://github.com/flakesbourg/hint_please_game/assets/112900790/c459cfc3-b3dd-4451-9f1a-db89d3feb303" alt="Alt-Text" width="500" >
 <br></br>
-After the players joined the host can do and see multiple things. The name, balance and guess of every player will be visible for the host. 
 By clicking on the checkbox of a player the players balance will be increased after
 the host clicks on the "next round" or "end game"-button.
 
