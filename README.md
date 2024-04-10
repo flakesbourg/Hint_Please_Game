@@ -19,14 +19,15 @@ The following rules apply for the game:
 
 ## How to Use
 The following steps are different for every role.
-### Start:
-<br></br>
+### Start
 Click the "create"-button to create a new game lobby and the host view will be displayed.
 <br></br>
 The user can also insted fill out the form and join an existing game.
 <br></br>
 <img src="https://github.com/flakesbourg/hint_please_game/assets/112900790/63f4822d-3836-4a39-b84a-7818edba0b3f" alt="Alt-Text" width="500" >
 <br></br>
+
+---
 
 ### Host:
 
@@ -38,12 +39,16 @@ By checking the checkbox of a player, the player will be marked as correct.
 If the players made their guesses and the host decides that the round over, the host can click the "next round" or "end game"-button to start the next round or end the game.
 If the "leave game"-button is clicked the user will get back to the start view.
 
+---
+
 ### Player:
 
 After the "join"-button in the start view is clicked and players joined, the following player view will be displayed:
 <br></br>
 <img src="https://github.com/flakesbourg/hint_please_game/assets/112900790/61c771e9-0bcb-49e5-82e2-6f20b88af6d7" alt="Alt-Text" width="500" >
 <br></br>
+
+---
 
 ### End:
 
