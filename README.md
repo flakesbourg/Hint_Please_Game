@@ -19,16 +19,18 @@ The following rules apply for the game:
 
 ## How to Use
 The following steps are different for every role.
-### Host a new game:
+### Start:
 <br></br>
-Click the "create"-button to Create a new game lobby.
+Click the "create"-button to create a new game lobby and the host view will be displayed.
+<br></br>
+The user can also insted fill out the form and join an existing game.
 <br></br>
 <img src="https://github.com/flakesbourg/hint_please_game/assets/112900790/63f4822d-3836-4a39-b84a-7818edba0b3f" alt="Alt-Text" width="500" >
 <br></br>
 
----
+### Host:
 
-After the "create"-button is clicked and players joined, the following view will be displayed:
+After the "create"-button in the start view is clicked and players joined, the following host view will be displayed:
 <br></br>
 <img src="https://github.com/flakesbourg/hint_please_game/assets/112900790/c459cfc3-b3dd-4451-9f1a-db89d3feb303" alt="Alt-Text" width="500" >
 <br></br>
@@ -36,14 +38,17 @@ By checking the checkbox of a player, the player will be marked as correct.
 If the players made their guesses and the host decides that the round over, the host can click the "next round" or "end game"-button to start the next round or end the game.
 If the "leave game"-button is clicked the user will get back to the start view.
 
----
+### Player:
 
+After the "join"-button in the start view is clicked and players joined, the following player view will be displayed:
 <br></br>
 <img src="https://github.com/flakesbourg/hint_please_game/assets/112900790/61c771e9-0bcb-49e5-82e2-6f20b88af6d7" alt="Alt-Text" width="500" >
 <br></br>
 
----
+### End:
 
+After the host ends the game a ranking of the best players will be shown to everyone participating in the game.
+A button at the bottom will redirect the user to the start view.
 <br></br>
 <img src="https://github.com/flakesbourg/hint_please_game/assets/112900790/86139bd8-e9c0-4072-968b-5923c451e6d8" alt="Alt-Text" width="500" >
 <br></br>
