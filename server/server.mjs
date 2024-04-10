@@ -6,9 +6,17 @@ import { Server } from 'socket.io';
 import { removeSocket } from './scripts/socket_functions/socketFunctions.mjs';
 import { addPlayerFunctions } from './scripts/socket_functions/addPlayerFunctions.mjs';
 import { addHostFunctions } from './scripts/socket_functions/addHostFunctions.mjs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 const app = express();
-app.use(bodyParser);
+app.use(express.static(path.resolve(__dirname, "./build")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "./build", "index.html"));
+});
 
 const PORT = process.env.PORT || 5000;
 const httpServer = createServer(app);
