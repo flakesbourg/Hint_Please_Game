@@ -3,6 +3,7 @@
 After I saw youtubers playing a similar game without such a program I thought it would be practical to 
 develop an application which solves the problems that comes with the manual execution of such a game.
 With this application a person can host and coordinate the game for multiple players.
+<br></br>
 For the server side of the application I used "Node.js" with "Socket.io" to send the update of a games state to 
 every participatig player. The client side is made with React to create a interactive one-page application.
 <br></br>
