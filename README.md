@@ -33,7 +33,7 @@ After the "create"-button is clicked and players joined, the following view will
 <img src="https://github.com/flakesbourg/hint_please_game/assets/112900790/c459cfc3-b3dd-4451-9f1a-db89d3feb303" alt="Alt-Text" width="500" >
 <br></br>
 By checking the checkbox of a player, the player will be marked as correct.
-Is the round over, the host can click the "next round" or "end game"-button to start the next round or end the game.
+If the players made their guesses and the host decides that the round over, the host can click the "next round" or "end game"-button to start the next round or end the game.
 If the "leave game"-button is clicked the user will get back to the start view.
 
 ---
@@ -41,6 +41,8 @@ If the "leave game"-button is clicked the user will get back to the start view.
 <br></br>
 <img src="https://github.com/flakesbourg/hint_please_game/assets/112900790/61c771e9-0bcb-49e5-82e2-6f20b88af6d7" alt="Alt-Text" width="500" >
 <br></br>
+
+---
 
 <br></br>
 <img src="https://github.com/flakesbourg/hint_please_game/assets/112900790/86139bd8-e9c0-4072-968b-5923c451e6d8" alt="Alt-Text" width="500" >
