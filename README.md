@@ -5,7 +5,7 @@ develop an application which solves the problems that comes with the manual exec
 With this application a person can host and coordinate the game for multiple players.
 For the server side of the application I used "Node.js" with "Socket.io" to send the update of a games state to 
 every participatig player. The client side is made with React to create a interactive one-page application.
-***
+**
 In possible future updates the host view may show more information like the hints a player bought or 
 all available hints.
 
