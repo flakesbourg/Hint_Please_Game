@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import PlayerComponent from "./PlayerComponent";
-import PlayerHeader from "../GameHeader";
+import GameHeader from "../common/GameHeader";
 import CorrectAnswer from "./CorrectAnswer";
 import PropTypes from "prop-types";
 import "./HostView.css";
+import LeaveButton from "../common/LeaveButton";
 
 /**
  * View of the Host of the game.
- * 
+ *
  * @component
  * @param {object} props
  * @param {object} props.gameState
@@ -17,24 +18,34 @@ import "./HostView.css";
  * @returns {JSX.Element} The rendered Component.
  */
 function HostView({ gameState }) {
-    return (
-        <>
-        <PlayerHeader currentRound={gameState.state.currentRound} gameId={gameState.gameId}/>
-        <div>
-            <CorrectAnswer gameState={gameState} />
-            <PlayerComponent gameState={gameState} />
-        </div>
-        </>
-    )
+  const [correctPlayers, setCorrectPlayers] = useState([]);
+
+  return (
+    <>
+      <GameHeader
+        currentRound={gameState.state.currentRound}
+        gameId={gameState.gameId}
+      />
+      <div>
+        <CorrectAnswer gameState={gameState} correctPlayers={correctPlayers} />
+        <PlayerComponent
+          gameState={gameState}
+          correctPlayers={correctPlayers}
+          setCorrectPlayers={setCorrectPlayers}
+        />
+        <LeaveButton />
+      </div>
+    </>
+  );
 }
 
 HostView.propTypes = {
-    gameState: PropTypes.shape({
-        gameId: PropTypes.string.isRequired,
-        state: PropTypes.shape({
-            currentRound: PropTypes.number.isRequired
-        }).isRequired
-    }).isRequired
+  gameState: PropTypes.shape({
+    gameId: PropTypes.string.isRequired,
+    state: PropTypes.shape({
+      currentRound: PropTypes.number.isRequired,
+    }).isRequired,
+  }).isRequired,
 };
 
 export default HostView;

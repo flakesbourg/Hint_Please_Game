@@ -30,24 +30,6 @@ export function addPlayerFunctions (socket, gameRooms, io) {
     }
   });
 
-  socket.on('playerIsCorrect', (data) => {
-    const [gameId, gameRoom] = getGameRoomFromSocket(socket, io, gameRooms);
-
-    if (!gameId || !gameRoom) return;
-
-    if (gameRoom.host === socket) {
-      const gameState = gameRoom.gameState;
-      try {
-        gameState.playerIsCorrect(data);
-        logger.info(`game "${gameId}": socket "${socket.id} is correct`);
-        updateGameState(socket, gameRooms, io);
-      } catch (error) {
-        logger.error(`game "${data.gameId}: "host tried to give points to "${socket.id}" --- ${error.message}`);
-        socket.emit('error', error.message);
-      }
-    }
-  });
-
   socket.on('makeGuess', (data) => {
     const [gameId, gameRoom] = getGameRoomFromSocket(socket, io, gameRooms);
 

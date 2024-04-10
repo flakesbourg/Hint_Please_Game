@@ -1,0 +1,93 @@
+.resultHeadline{
+    font-size: var(--font-big);
+    margin-bottom: 0;
+}
+
+.rankingContainer {
+    background-color: var(--main-color-secondary);
+    width: 70%;
+    margin: 20px auto;
+    padding: 5px 0;
+    border-radius: var(--border-radius);
+}
+
+.rankingEntry {
+    width: 90%;
+    margin: 15px auto;
+    display: flex;
+    justify-content: space-between;
+    font-size: var(--font-medium);
+}
+
+.rankingEntry.i0{
+    font-size: var(--font-big);
+}
+
+.rankingEntry .index{
+    padding: 3px 15px;
+}
+
+.rankingEntry.i0 .index,
+.rankingEntry.i1 .index,
+.rankingEntry.i2 .index{
+    color: black;
+    border-radius: var(--border-radius);
+}
+
+.rankingEntry.i0 .index{
+    background-color: gold;
+}
+
+.rankingEntry.i1 .index{
+    background-color: silver;
+}
+
+.rankingEntry.i2 .index{
+    background-color: #B08D57;
+}
+
+.rankingEntry .name{
+    margin: 0 15px;
+    width: 80%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.backToMenuButton{
+    width: var(--main-width);
+    border-radius: var(--border-radius);
+    border: none;
+    padding: 10px 0;
+    font-size: var(--font-medium);
+    font-family: "JetBrains Mono";
+    margin: 20px 0;
+    background-color: rgb(255, 72, 72);
+    box-shadow: var(--box-shadow);
+}
+
+.backToMenuButton:hover,
+.backToMenuButton:active {
+    cursor: pointer;
+    background-color: rgb(246, 51, 51);
+}
+
+@media (min-width: 800px) {
+    .rankingContainer,
+    .backToMenuButton {
+        width: 50%;
+    }
+}
+
+@media (min-width: 1300px) {
+    .rankingContainer,
+    .backToMenuButton {
+        width: 40%;
+    }
+}
+
+@media (min-width: 1800px) {
+    .rankingContainer,
+    .backToMenuButton {
+        width: 30%;
+    }
+}

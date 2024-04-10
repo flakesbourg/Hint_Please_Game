@@ -150,7 +150,7 @@ describe('GameState', () => {
       expect(() => gameState.playerBuysHint('name', hintNumber)).not.toThrow(Error);
       expect(() => gameState.playerBuysHint('name', hintNumber)).toThrow(Error);
       expect(player.hints.length).toBe(1);
-      expect(player.hintNumbers.has(hintNumber)).toBe(true);
+      expect(player.hintNumbers.includes(hintNumber)).toBe(true);
     });
 
     test('call playerBuysHint but balance too low', () => {
@@ -163,7 +163,7 @@ describe('GameState', () => {
       expect(player.balance).toBe(8);
       expect(() => gameState.playerBuysHint('name', hintNumber + 1)).not.toThrow(Error);
       expect(player.balance).toBe(6);
-      gameState.nextRound();
+      gameState.nextRound([]);
       expect(() => gameState.playerBuysHint('name', hintNumber)).not.toThrow(Error);
       expect(player.balance).toBe(2);
       expect(() => gameState.playerBuysHint('name', hintNumber + 1)).toThrow(Error);
@@ -259,13 +259,14 @@ describe('GameState', () => {
       gameState.addPlayer(player);
       gameState.playerBuysHint('name', 0);
       gameState.playerMakesGuess('name', 'guess');
-      gameState.playerIsCorrect('name');
 
       expect(player.hints.length).toBe(1);
       expect(gameState.currentRound).toBe(0);
 
-      gameState.nextRound();
+      let balance = player.balance;
+      gameState.nextRound([player.name]);
 
+      expect(player.balance).toBe(balance + 15);
       expect(player.hints.length).toBe(0);
       expect(gameState.currentRound).toBe(1);
     });
@@ -277,13 +278,12 @@ describe('GameState', () => {
       gameState.addPlayer(player);
       gameState.playerBuysHint('name', 0);
       gameState.playerMakesGuess('name', 'guess');
-      gameState.playerIsCorrect('name');
 
       expect(player.hints.length).toBe(1);
       expect(gameState.currentRound).toBe(0);
 
       for (let i = 0; i < gameDataLength - 1; i++) {
-        gameState.nextRound();
+        gameState.nextRound([]);
       }
 
       expect(() => gameState.nextRound()).toThrow(Error);

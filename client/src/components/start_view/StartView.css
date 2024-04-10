@@ -3,7 +3,7 @@
     --font-big: 30px;
     --font-medium: 25px;
     --font-small: 20px;
-    --border-radius: 20px;
+    --border-radius: 15px;
     --box-shadow: black 0px 0 15px 0px;
     --main-color-primary: #1c1b1b;
     --main-color-secondary: #2f2f2f;
@@ -24,13 +24,14 @@ h2 {
 
 .button {
     border-style: none;
-    border-radius: 13px;
+    border-radius: var(--border-radius);
     padding: 10px 0;
     background-color: var(--highlight-color-primary);
     font-size: 26px;
     font-family: "JetBrains Mono";
     width: 80%;
     margin-bottom: 20px;
+    box-shadow: var(--box-shadow);
 }
 
 .button:hover{
@@ -65,7 +66,7 @@ h2 {
 }
 
 .joinInput {
-    border-radius: 15px;
+    border-radius: var(--border-radius);
     border-style: none;
     padding: 10px 0px;
     margin-bottom: 10px;

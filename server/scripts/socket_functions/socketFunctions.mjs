@@ -38,6 +38,8 @@ export function removeSocket (socket, gameRooms, io) {
       player.socket.leave(gameId);
       player.socket.emit('hostLeft');
     });
+    gameRoom.host.emit('hostLeft');
+    gameRoom.host.leave(gameId);
     gameRooms.delete(gameId); // Spiel aus der Liste der aktiven Spiele entfernen
     logger.info(`game "${gameId}": host "${socket.id}" left the game`);
   } else {

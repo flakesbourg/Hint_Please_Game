@@ -1,5 +1,5 @@
-import Player from './Player.mjs';
-import fs from 'fs';
+import Player from "./Player.mjs";
+import fs from "fs";
 
 /**
  * Represents the current state of a game of "Hint Please!".
@@ -11,7 +11,7 @@ class GameState {
    * Creates a new game of "Hint Please!"
    * @param {string} gameDataPath a valid path to a json file containing the game data.
    */
-  constructor (gameDataPath) {
+  constructor(gameDataPath) {
     this.players = [];
     this.currentRound = 0;
     this.gameData = JSON.parse(fs.readFileSync(gameDataPath).toString());
@@ -24,12 +24,18 @@ class GameState {
    * @throws an Error if the argument is not an instance of Player.
    * @throws an Error if a player with the same name already exists.
    */
-  addPlayer (player) {
-    if (!player) { throw new Error('this player is undefined'); }
+  addPlayer(player) {
+    if (!player) {
+      throw new Error("this player is undefined");
+    }
 
-    if (!(player instanceof Player)) { throw new Error('argument is not an instance of class Player'); }
+    if (!(player instanceof Player)) {
+      throw new Error("argument is not an instance of class Player");
+    }
 
-    if (this.players.find((elem) => elem.name === player.name)) { throw new Error('Player with this name already exists'); }
+    if (this.players.find((elem) => elem.name === player.name)) {
+      throw new Error("Player with this name already exists");
+    }
 
     this.players.push(player);
   }
@@ -39,7 +45,7 @@ class GameState {
    * @param {string} name name of the wanted player.
    * @returns {Player} Returns a player or undefined.
    */
-  getPlayer (name) {
+  getPlayer(name) {
     return this.players.find((elem) => elem.name === name);
   }
 
@@ -48,25 +54,59 @@ class GameState {
    * @param {string} name name of the wanted player.
    * @returns {(number|undefined)} Returns the balance of the player with the given name or undefined
    */
-  getBalanceOfPlayer (name) {
+  getBalanceOfPlayer(name) {
     const player = this.getPlayer(name);
     return player ? player.balance : undefined;
   }
 
   /**
-   * Starts the next round if possible. It also clears 
+   * Starts the next round if possible. Increases Balance of every
+   * correct player. It also clears
    * every hint and guess of every player.
+   * @param {Array} correctPlayers List of the names of every correct player.
    * @throws an Error if the last round is already reached.
    */
-  nextRound () {
-    if (this.currentRound + 1 >= this.gameData.length) { throw new Error('already the last round'); }
+  nextRound(correctPlayers) {
+    if (this.currentRound + 1 >= this.gameData.length) {
+      throw new Error("already the last round");
+    }
+
+    for (const playerName of correctPlayers) {
+      const player = this.getPlayer(playerName);
+      if (player) this.playerIsCorrect(playerName);
+    }
 
     this.currentRound++;
     this.players.forEach((player) => {
       player.hints = [];
-      player.guess = '';
+      player.guess = "";
       player.hintNumbers = [];
     });
+  }
+
+  endGame(correctPlayers) {
+    if (!correctPlayers || !this.players) {
+      return {};
+    }
+
+    for (const playerName of correctPlayers) {
+      const player = this.getPlayer(playerName);
+      if (player) this.playerIsCorrect(playerName);
+    }
+
+    let ranking = {};
+    for (const player of this.players) {
+      ranking[player.name] = player.balance;
+    }
+
+    let sortedRanking = Object.keys(ranking)
+      .sort((a, b) => ranking[b] - ranking[a])
+      .reduce((acc, key) => {
+        acc[key] = ranking[key];
+        return acc;
+      }, {});
+
+    return sortedRanking; 
   }
 
   /**
@@ -79,36 +119,51 @@ class GameState {
    * @throws an Error if the player already bought two hints.
    * @throws an Error if the player doesnt have enough money.
    */
-  playerBuysHint (name, hintNumber) {
+  playerBuysHint(name, hintNumber) {
     const hint = this.gameData[this.currentRound].hints[hintNumber];
     const player = this.getPlayer(name);
 
-    if (!hint) { throw new Error('hint is unvalid'); }
+    if (!hint) {
+      throw new Error("hint is unvalid");
+    }
 
-    if (!player) { throw new Error('player is unvalid'); }
+    if (!player) {
+      throw new Error("player is unvalid");
+    }
 
-    if (player.hintNumbers.includes(hintNumber)) { throw new Error('player cant buy the same hint twice'); }
+    if (player.hintNumbers.includes(hintNumber)) {
+      throw new Error("player cant buy the same hint twice");
+    }
 
-    if (player.hints.length >= 2) { throw new Error('player cant buy another hint'); }
+    if (player.hints.length >= 2) {
+      throw new Error("player cant buy another hint");
+    }
 
     const price = hint.price;
 
-    if (player.balance < price) { throw new Error('player doesnt have enough money'); }
+    if (player.balance < price) {
+      throw new Error("player doesnt have enough money");
+    }
 
     player.changeBalance(-price);
-    player.hints.push({ category: this.gameData[this.currentRound].hints[hintNumber].category, hint: this.gameData[this.currentRound].hints[hintNumber].hint });
+    player.hints.push({
+      category: this.gameData[this.currentRound].hints[hintNumber].category,
+      hint: this.gameData[this.currentRound].hints[hintNumber].hint,
+    });
     player.hintNumbers.push(hintNumber);
   }
 
   /**
    * Adds 15 to the balance of the given player.
-   * @param {string} name name of the wanted player.
+   * @param {string} name Name of the correct player.
    * @throws an Error if the wanted player is unvalid.
    */
-  playerIsCorrect (name) {
-    const player = this.getPlayer(name);
+  playerIsCorrect(name) {
+    let player = this.getPlayer(name);
 
-    if (!player) { throw new Error('player is unvalid'); }
+    if (!player) {
+      throw new Error("player is unvalid");
+    }
 
     player.balance += 15;
   }
@@ -120,15 +175,21 @@ class GameState {
    * @throws an Error if the player is unvalid.
    * @throws an Error if the guess isnt a string.
    */
-  playerMakesGuess (name, guess) {
+  playerMakesGuess(name, guess) {
     const player = this.getPlayer(name);
     guess = guess.trim();
 
-    if (!player) { throw new Error('player is unvalid'); }
+    if (!player) {
+      throw new Error("player is unvalid");
+    }
 
-    if (typeof guess !== 'string') { throw new Error('guess is unvalid'); }
+    if (typeof guess !== "string") {
+      throw new Error("guess is unvalid");
+    }
 
-    if (!guess) { guess = ''; }
+    if (!guess) {
+      guess = "";
+    }
 
     player.guess = guess;
   }
@@ -137,12 +198,16 @@ class GameState {
    * Get the category and price of every hint of the current round.
    * @returns {Array} an Array of dictionaries with the category and price of every hint.
    */
-  getHints () {
+  getHints() {
     const hints = this.gameData[this.currentRound].hints;
     const result = [];
 
     for (let i = 0; i < hints.length; i++) {
-      result.push({ category: this.gameData[this.currentRound].hints[i].category, price: this.gameData[this.currentRound].hints[i].price, hintNumber: i });
+      result.push({
+        category: this.gameData[this.currentRound].hints[i].category,
+        price: this.gameData[this.currentRound].hints[i].price,
+        hintNumber: i,
+      });
     }
 
     return result;
@@ -153,7 +218,7 @@ class GameState {
    * @param {string} name name of the wanted player.
    * @returns {Array} an Array with dictionaries containing the name and balance of every player except the given.
    */
-  getAllOtherPlayers (name) {
+  getAllOtherPlayers(name) {
     const result = [];
     this.players.forEach((elem) => {
       if (elem.name !== name) {
