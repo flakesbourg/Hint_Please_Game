@@ -16,3 +16,7 @@ The following rules apply for the game:
 * The price of a hint is higher the more helpful it is.
 * If a player guessed correct, the players balance increases by 15.
 * The player with the highest credit by the end of the game wins.
+
+## How to Use
+1. Host a new Game
+![Start View](https://github.com/flakesbourg/hint_please_game/assets/112900790/63f4822d-3836-4a39-b84a-7818edba0b3f)
