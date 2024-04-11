@@ -17,8 +17,16 @@ The following rules apply for the game:
 * If a player guessed correct, the players balance increases by 15.
 * The player with the highest credit by the end of the game wins.
 
+## Run the application
+The following steps need to be followed:
+1. build the react app inside the client folder:
+   ```bash
+   npm run build
+   ```  
+2. move a copy of the build folder inside the server folder
+3. 
+
 ## How to Play
-The following steps are different for every role.
 ### Start
 Click the "create"-button to create a new game lobby and the host view will be displayed.
 <br></br>
