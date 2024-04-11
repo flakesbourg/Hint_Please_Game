@@ -19,12 +19,20 @@ The following rules apply for the game:
 
 ## Run the application
 The following steps need to be followed:
-1. build the react app inside the client folder:
-   ```bash
-   npm run build
-   ```  
-2. move a copy of the build folder inside the server folder
-3. 
+1.  Build the react app inside the client folder:
+    ```bash
+    npm run build
+    ```  
+2.  Move a copy of the build folder (the folder also needs to be called "build") inside the server folder
+3.  Build a docker image with the dockerfile inside the server folder:
+    ```bash
+    docker build -t hint_please .
+    ```
+4.  Run a docker container from the built image:
+    ```bash
+    docker run hint_please .
+    ```
+5.  Connect to application via port 5000
 
 ## How to Play
 ### Start
