@@ -10,13 +10,6 @@ every participatig player. The client side is made with React to create a intera
 In possible future updates the host view may show more information like the hints a player bought or 
 all available hints.
 
-## Rules
-The following rules apply for the game:
-* To get closer to the answer, a player can buy up to 2 hints with their credit.
-* The price of a hint is higher the more helpful it is.
-* If a player guessed correct, the players balance increases by 15.
-* The player with the highest credit by the end of the game wins.
-
 ## Run the application
 The following steps need to be followed:
 1.  Build the react app inside the client folder:
@@ -33,6 +26,13 @@ The following steps need to be followed:
     docker run hint_please .
     ```
 5.  Connect to application via port 5000
+   
+## Rules
+The following rules apply for the game:
+* To get closer to the answer, a player can buy up to 2 hints with their credit.
+* The price of a hint is higher the more helpful it is.
+* If a player guessed correct, the players balance increases by 15.
+* The player with the highest credit by the end of the game wins.
 
 ## How to Play
 ### Start
