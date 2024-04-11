@@ -4,7 +4,11 @@ import { logger } from '../logger.mjs';
 
 export function addHostFunctions (socket, gameRooms, io) {
   socket.on('createGame', () => {
-    const gameId = '' + Math.round(Math.random() * 1000);
+    const gameId = '' + (Math.round(Math.random() * 90000) + 10000);
+    while(gameRooms.get(gameId)) {
+      '' + Math.round(Math.random() * 10000);
+    }
+
     logger.info(`socket "${socket.id}" created game "${gameId}"`);
     const gameState = new GameState('./scripts/testData/test.json');
     socket.join(gameId);
