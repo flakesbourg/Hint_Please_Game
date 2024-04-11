@@ -5,12 +5,21 @@ import { Server } from 'socket.io';
 import { removeSocket } from './scripts/socket_functions/socketFunctions.mjs';
 import { addPlayerFunctions } from './scripts/socket_functions/addPlayerFunctions.mjs';
 import { addHostFunctions } from './scripts/socket_functions/addHostFunctions.mjs';
+import { rateLimit } from "express-rate-limit"
 import path from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 const app = express();
+
+let limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  limit: 100,
+});
+
+app.use(limiter);
+
 app.use(express.static(path.resolve(__dirname, "./build")));
 
 app.get("*", (req, res) => {
