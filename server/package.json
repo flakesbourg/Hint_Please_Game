@@ -1,7 +1,7 @@
 {
-  "name": "server",
+  "name": "server_hint_please",
   "version": "1.0.0",
-  "description": "",
+  "description": "The server side code for the Hint Please Game",
   "main": "server.mjs",
   "scripts": {
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
@@ -9,8 +9,8 @@
     "lint": "semistandard --verbose | snazzy",
     "fix": "semistandard --fix --verbose | snazzy"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Alexander Falkenberg",
+  "license": "AGPL-3.0-only",
   "dependencies": {
     "body-parser": "^1.20.2",
     "express": "^4.18.3",
