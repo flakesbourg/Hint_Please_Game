@@ -15,7 +15,7 @@ function JoinGame() {
   function onSubmit(event) {
     event.preventDefault();
 
-    socket.emit("joinGame", { name: playerName, gameId: gameId });
+    socket.volatile.emit("joinGame", { name: playerName, gameId: gameId });
   }
 
   return (

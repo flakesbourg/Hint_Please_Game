@@ -11,7 +11,7 @@ export default function CreateRoom() {
   function onSubmit(event) {
     event.preventDefault();
 
-    socket.emit("createGame");
+    socket.volatile.emit("createGame");
   }
 
   return (
