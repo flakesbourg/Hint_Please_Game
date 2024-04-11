@@ -1,6 +1,5 @@
 import express from 'express';
 import { logger } from './scripts/logger.mjs';
-import bodyParser from 'body-parser';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 import { removeSocket } from './scripts/socket_functions/socketFunctions.mjs';
